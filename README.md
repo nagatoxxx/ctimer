@@ -15,11 +15,18 @@ add this directory to `PATH` or manually move it to the desired path
 libnotify
 ```
 ## example usage
-countdown 30s:
+* countdown 30s:
 ``` 
 $ ctimer -c 30
 ```
-send notification at 7:15:
+* send notification at 7:15 (process becomes background):
 ```
 $ ctimer -t 7:15 -n "time is over!"
+```
+* combine with other programs:
+```
+$ ctimer -t 7:15 && notify-send "time is over!"
+```
+```
+$ ctimer -c 30 && swaylock
 ```
