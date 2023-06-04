@@ -45,10 +45,9 @@ main(int argc, char* argv[]) {
     int res = 0;
     int mode = 0;
 
-    bool bg = false;
-    
     char notification_message[64];
     bool notify = false;
+    bool bg = false;
 
     while ((res = getopt(argc, argv, "c:t:n:hb")) != -1) {
         switch (res) {
@@ -66,13 +65,14 @@ main(int argc, char* argv[]) {
             case 'n':
                 strcpy(notification_message, optarg);
                 notify = true;
-                break;
-            case 'b':
                 bg = true;
                 break;
                 
         }
     }
+
+    if (bg)
+        background();
 
     struct time timer = {0, 0, 0};
     if (check_time_string(time_string))
@@ -89,14 +89,12 @@ main(int argc, char* argv[]) {
     else if (mode == TARGET)
         target(&timer);
 
-    if (bg)
-        background();
-
     countdown(&timer);
+#ifdef NOTIFY
     if (notify) {
         send_notification(notification_message);
     }
-
+#endif
     return EXIT_SUCCESS;
 
 exit_error:
@@ -233,8 +231,7 @@ static void print_help(void) {
         "    -h\t\t\tshow this message\n"
         "    -t <time string>\tset a timer until a certain time\n"
         "    -c <time string>\tset a timer for a given time\n"
-        "    -n <message>\tsend notification when time is up\n"
-        "    -b\t\t\tput the timer in the background\n"
+        "    -n <message>\tsend notification when time is up and move process to background\n"
         "\ntime string:\n"
         "    <h:m> for -t\n"
         "    <s> or <m:s> or <h:m:s> for -c\n"
