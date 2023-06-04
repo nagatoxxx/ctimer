@@ -15,6 +15,13 @@ add this directory to `PATH` or manually move it to the desired path
 libnotify
 ```
 ## example usage
+* print help:
+```
+$ ctimer 
+```
+```
+$ ctimer -h
+```
 * countdown 30s:
 ``` 
 $ ctimer -c 30
