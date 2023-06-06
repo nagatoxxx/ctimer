@@ -4,7 +4,7 @@ CFLAGS = -Wall -O3 -DNOTIFY $(shell pkg-config --cflags libnotify)
 LDFLAGS = $(shell pkg-config --libs libnotify)
 
 all: main.o
-	$(CC) -o $(NAME) $(LDFLAGS) main.o
+	$(CC) main.o -o $(NAME) $(LDFLAGS)
 
 install: $(NAME)
 	cp $(NAME) ~/.local/bin/
